@@ -33,6 +33,7 @@ public class menu extends Activity {
 		Button tut1 = (Button) findViewById(R.id.button1);
 		Button tut2 = (Button) findViewById(R.id.button2);
 		Button btnNurse = (Button) findViewById(R.id.btnNurse);
+		Button btnPatient = (Button) findViewById(R.id.btnPatient);
 		// in parentheses is what we're going to use is a button, with button
 		// methods
 		// everything in xml is a view (like buttons, text, pictures) and it's a
@@ -79,6 +80,23 @@ public class menu extends Activity {
 				// TODO Auto-generated method stub
 				buttonSound.start();
 				startActivity(new Intent("com.jackieloven.thebasics.SERVER"));
+
+				// remember, this takes an Intent
+				// remember to import intent by hovering
+				// and you can use something complex, but also you can make a
+				// new intent
+				// inside like we did here
+
+			}
+		});
+
+		btnPatient.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				buttonSound.start();
+				startActivity(new Intent("com.jackieloven.thebasics.PATIENT"));
 
 				// remember, this takes an Intent
 				// remember to import intent by hovering

@@ -78,6 +78,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Patient"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Dialog"
+            >
+            
+            <intent-filter>
+                <action android:name="com.jackieloven.thebasics.PATIENT" />
+                <!-- make sure this matches the new button method you just added in the main.java (SECONDSCREENJAVA is the new screen) -->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+         
     </application>
 
 </manifest>
