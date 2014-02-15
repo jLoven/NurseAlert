@@ -2,6 +2,8 @@
 // search "ALL CLIENTS" for things that all clients need to do to communicate with server
 // delete this after we start the actual factory project code
 
+package com.jackieloven.thebasics;
+
 import java.io.*;
 import java.net.*;
 import java.awt.*;

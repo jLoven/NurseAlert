@@ -1,3 +1,5 @@
+package com.jackieloven.thebasics;
+
 import java.io.*;
 
 /** networking message indicating to close connection
