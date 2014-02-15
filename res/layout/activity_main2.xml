@@ -44,18 +44,18 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/tutorial3"
+                android:id="@+id/btnNurse"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Button 3"
+                android:text="Nurse"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/tutorial4"
+                android:id="@+id/btnPatient"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Button 4"
+                android:text="Patient"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 

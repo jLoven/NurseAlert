@@ -32,6 +32,7 @@ public class menu extends Activity {
 		// Setting up the button references
 		Button tut1 = (Button) findViewById(R.id.button1);
 		Button tut2 = (Button) findViewById(R.id.button2);
+		Button btnNurse = (Button) findViewById(R.id.btnNurse);
 		// in parentheses is what we're going to use is a button, with button
 		// methods
 		// everything in xml is a view (like buttons, text, pictures) and it's a
@@ -60,8 +61,24 @@ public class menu extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				buttonSound.start();
-				startActivity(new Intent(
-						"com.jackieloven.thebasics.SWEET"));
+				startActivity(new Intent("com.jackieloven.thebasics.SWEET"));
+
+				// remember, this takes an Intent
+				// remember to import intent by hovering
+				// and you can use something complex, but also you can make a
+				// new intent
+				// inside like we did here
+
+			}
+		});
+		
+		btnNurse.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				buttonSound.start();
+				startActivity(new Intent("com.jackieloven.thebasics.SERVER"));
 
 				// remember, this takes an Intent
 				// remember to import intent by hovering
@@ -79,29 +96,30 @@ public class menu extends Activity {
 		super.onPause();
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu){
+	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater awesome = getMenuInflater();
 		awesome.inflate(R.menu.main_menu, menu);
 		return true;
-		//import Menu
-		//call it menu
-		
+		// import Menu
+		// call it menu
+
 	}
-	
-	public boolean onOptionsItemSelected(MenuItem item){
-		switch (item.getItemId()){
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 		case R.id.menuSweet:
 			startActivity(new Intent("com.jackieloven.thebasics.SWEET"));
 			return true;
 		case R.id.menuToast:
-			Toast andEggs = Toast.makeText(menu.this, "This is a toast", Toast.LENGTH_LONG);
+			Toast andEggs = Toast.makeText(menu.this, "This is a toast",
+					Toast.LENGTH_LONG);
 			andEggs.show();
 			return true;
 		}
-		//wanna reference the xml id
-		
+		// wanna reference the xml id
+
 		return false;
 	}
-	
+
 }
