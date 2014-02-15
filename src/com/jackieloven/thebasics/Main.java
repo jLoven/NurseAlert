@@ -42,7 +42,7 @@ public class Main extends Activity {
 					 * time wanna only try something in case it doesn't work
 					 */
 					sleep(3500);
-					/** sleep for 5 seconds */
+					/** sleep for 3.5 seconds */
 					Intent menuIntent = new Intent(
 							"com.jackieloven.thebasics.MENU");
 					/**
