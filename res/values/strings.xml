@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Doge Forever</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">This is the hello reference</string>
+    <string name="radio_button1">Normal</string>
+    <string name="radio_button2">Italic</string>
+    <string name="radio_button3">Bold</string>
+    <string name="radio_button4">Left</string>
+    <string name="radio_button5">Center</string>
+    <string name="radio_button6">Right</string>
+    <string name="gen_button1">Generate</string>
+    <string name="main_text1">Kickass App by Jackie L.</string>
+    <string name="main_text2">Because we can.</string>
+    <string name="gen_button2">Radio Buttons</string>
+    <string name="gen_button3">List View</string>
+    <string name="screen2_text1">Style</string>
+    <string name="screen2_text2">Gravity</string>
+    <string name="screen2_text3">Type in text and press the button below</string>
+	<string name="gen_text1">sdjfajskhfaksdjf</string>
+    
+</resources>
