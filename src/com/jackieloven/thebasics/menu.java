@@ -30,8 +30,7 @@ public class menu extends Activity {
 		// below in onClick
 
 		// Setting up the button references
-		Button tut1 = (Button) findViewById(R.id.button1);
-		Button tut2 = (Button) findViewById(R.id.button2);
+		
 		Button btnNurse = (Button) findViewById(R.id.btnNurse);
 		Button btnPatient = (Button) findViewById(R.id.btnPatient);
 		// in parentheses is what we're going to use is a button, with button
@@ -39,39 +38,7 @@ public class menu extends Activity {
 		// everything in xml is a view (like buttons, text, pictures) and it's a
 		// class
 		// find view by ID of that view
-		tut1.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				buttonSound.start();
-				startActivity(new Intent(
-						"com.jackieloven.thebasics.SECONDSCREENJAVA"));
-
-				// remember, this takes an Intent
-				// remember to import intent by hovering
-				// and you can use something complex, but also you can make a
-				// new intent
-				// inside like we did here
-			}
-		});
-
-		tut2.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				buttonSound.start();
-				startActivity(new Intent("com.jackieloven.thebasics.SWEET"));
-
-				// remember, this takes an Intent
-				// remember to import intent by hovering
-				// and you can use something complex, but also you can make a
-				// new intent
-				// inside like we did here
-
-			}
-		});
+		
 		
 		btnNurse.setOnClickListener(new View.OnClickListener() {
 
