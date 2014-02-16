@@ -15,10 +15,12 @@ public class Patient extends Activity implements Networked {
 
 	private Dialog dialog;
 	private NetComm netComm;
+	private ImageView imageBody;
 
 	private enum PatientScreen {
 		HURT, MISC
 	}
+
 	PatientScreen patientScreen;
 
 	private void callNurse(String bodyPart) {
@@ -46,8 +48,8 @@ public class Patient extends Activity implements Networked {
 		int height = getWindowManager().getDefaultDisplay().getHeight();
 
 		if ((e.getX() - centerX * width) * (e.getX() - centerX * width)
-				+ (e.getY() - centerY * height) * (e.getY() - centerY * height) < (height / 4)
-				* (height / 4)) {
+				+ (e.getY() - centerY * height) * (e.getY() - centerY * height) < (height / 6)
+				* (height / 6)) {
 			return true;
 		}
 		return false;
@@ -60,8 +62,8 @@ public class Patient extends Activity implements Networked {
 
 		patientScreen = PatientScreen.HURT;
 
-		ImageView imageBody = (ImageView) findViewById(R.id.imageView1);
-		
+		imageBody = (ImageView) findViewById(R.id.imageView1);
+
 		new Thread(new NetworkThread()).start();
 
 		imageBody.setOnTouchListener(new OnTouchListener() {
@@ -69,8 +71,10 @@ public class Patient extends Activity implements Networked {
 			public boolean onTouch(View v, MotionEvent e) {
 
 				if (dialog == null || !dialog.isShowing()) {
-					int width = getWindowManager().getDefaultDisplay().getWidth();
-					int height = getWindowManager().getDefaultDisplay().getHeight();
+					int width = getWindowManager().getDefaultDisplay()
+							.getWidth();
+					int height = getWindowManager().getDefaultDisplay()
+							.getHeight();
 					if (patientScreen == PatientScreen.HURT) {
 						if (inCircle(e, 0.3, 0.05)) {
 							callNurse("head");
@@ -100,27 +104,26 @@ public class Patient extends Activity implements Networked {
 							callNurse("foot");
 							return true;
 						}
-						if (e.getX() > width * 7 / 8) {
+						if (e.getX() > width * 6 / 7) {
 							imageBody.setImageResource(R.drawable.background_3);
 							patientScreen = PatientScreen.MISC;
 							return true;
 						}
-					}
-					else if (patientScreen == PatientScreen.MISC) {
+					} else if (patientScreen == PatientScreen.MISC) {
 						if (inBigCircle(e, 0.5, 0.25)) {
 							netComm.write(new RestroomMsg());
-							dialog = new Dialog(this);
+							dialog = new Dialog(Patient.this);
 							dialog.setTitle("A nurse will come to assist you.");
 							dialog.show();
 						}
 						if (inBigCircle(e, 0.5, 0.75)) {
 							netComm.write(new QuestionMsg());
-							dialog = new Dialog(this);
+							dialog = new Dialog(Patient.this);
 							dialog.setTitle("A nurse will come to assist you.");
 							dialog.show();
 						}
-						if (e.getX() < width / 8) {
-							imageBody.setImageResource(R.drawable.background_2);
+						if (e.getX() < width / 7) {
+							imageBody.setImageResource(R.drawable.body_outline);
 							patientScreen = PatientScreen.HURT;
 							return true;
 						}
@@ -131,14 +134,13 @@ public class Patient extends Activity implements Networked {
 		});
 
 	}
-	
+
 	public void msgReceived(Object msgObj, NetComm sender) {
 		if (msgObj instanceof CloseConnectionMsg) {
 			netComm.close();
 			netComm = null;
 			finish();
-		}
-		else {
+		} else {
 			System.out.println("Warning: received unknown message " + msgObj);
 		}
 	}
@@ -147,8 +149,7 @@ public class Patient extends Activity implements Networked {
 		public void run() {
 			try {
 				netComm = new NetComm(new Socket(ip, Server.PORT), Patient.this);
-			}
-			catch (Exception ex) {
+			} catch (Exception ex) {
 				netComm = null;
 				finish();
 			}
