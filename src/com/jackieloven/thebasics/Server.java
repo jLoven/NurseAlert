@@ -22,23 +22,28 @@ public class Server extends Activity implements Networked {
 	private ServerSocket serverSocket;
 	/** ArrayList of client connections */
 	private ArrayList<NetComm> netComms;
-
-	
+	private boolean running;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-	}
-
-	/** constructor for server class */
-	public Server() throws IOException {
 		// initialize server socket
-		serverSocket = new ServerSocket(PORT);
+		try {
+			serverSocket = new ServerSocket(PORT);
+		}
+		catch (IOException ex) {
+			finish();
+		}
 		netComms = new ArrayList<NetComm>();
 		// wait for clients to connect
+		running = true;
 		new Thread(new AcceptClientsThread()).start();
+	}
+	
+	protected void onDestroy() {
+		super.onDestroy();
+		running = false;
 	}
 
 	/** handle message received from clients */
@@ -83,17 +88,24 @@ public class Server extends Activity implements Networked {
 	private class AcceptClientsThread implements Runnable {
 		/** wait for clients to connect */
 		public void run() {
-			while (true) { // loop exits when user presses ctrl+C
+			while (running) {
 				try {
 					Socket socket = serverSocket.accept();
 					netComms.add(new NetComm(socket, Server.this));
 					showDialog("Patient " + (netComms.size() - 1) + " is online.");
 				}
 				catch (Exception ex) {
-					showDialog("Error accepting new patient connection.");
 					ex.printStackTrace();
+					break;
 				}
 			}
+			try {
+				serverSocket.close();
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			finish();
 		}
 	}
 }
