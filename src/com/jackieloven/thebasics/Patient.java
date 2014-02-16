@@ -107,13 +107,13 @@ public class Patient extends Activity implements Networked {
 						}
 					}
 					else if (patientScreen == PatientScreen.MISC) {
-						if (inBigCircle(e, 0.5, 0.25) {
+						if (inBigCircle(e, 0.5, 0.25)) {
 							netComm.write(new RestroomMsg());
 							dialog = new Dialog(this);
 							dialog.setTitle("A nurse will come to assist you.");
 							dialog.show();
 						}
-						if (inBigCircle(e, 0.5, 0.75) {
+						if (inBigCircle(e, 0.5, 0.75)) {
 							netComm.write(new QuestionMsg());
 							dialog = new Dialog(this);
 							dialog.setTitle("A nurse will come to assist you.");
