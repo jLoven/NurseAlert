@@ -16,6 +16,11 @@ public class Patient extends Activity implements Networked {
 	private Dialog dialog;
 	private NetComm netComm;
 
+	private enum PatientScreen {
+		HURT, MISC
+	}
+	PatientScreen patientScreen;
+
 	private void callNurse(String bodyPart) {
 		HurtMsg msg = new HurtMsg();
 		msg.bodyPart = bodyPart;
@@ -36,10 +41,24 @@ public class Patient extends Activity implements Networked {
 		return false;
 	}
 
+	private boolean inBigCircle(MotionEvent e, double centerX, double centerY) {
+		int width = getWindowManager().getDefaultDisplay().getWidth();
+		int height = getWindowManager().getDefaultDisplay().getHeight();
+
+		if ((e.getX() - centerX * width) * (e.getX() - centerX * width)
+				+ (e.getY() - centerY * height) * (e.getY() - centerY * height) < (height / 4)
+				* (height / 4)) {
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.patient);
+
+		patientScreen = PatientScreen.HURT;
 
 		ImageView imageBody = (ImageView) findViewById(R.id.imageView1);
 		
@@ -50,33 +69,61 @@ public class Patient extends Activity implements Networked {
 			public boolean onTouch(View v, MotionEvent e) {
 
 				if (dialog == null || !dialog.isShowing()) {
-					if (inCircle(e, 0.3, 0.05)) {
-						callNurse("head");
-						return true;
+					int width = getWindowManager().getDefaultDisplay().getWidth();
+					int height = getWindowManager().getDefaultDisplay().getHeight();
+					if (patientScreen == PatientScreen.HURT) {
+						if (inCircle(e, 0.3, 0.05)) {
+							callNurse("head");
+							return true;
+						}
+						if (inCircle(e, 0.35, 0.27)) {
+							callNurse("chest");
+							return true;
+						}
+						if (inCircle(e, 0.2, 0.5)) {
+							callNurse("hand");
+							return true;
+						}
+						if (inCircle(e, 0.35, 0.4)) {
+							callNurse("stomach");
+							return true;
+						}
+						if (inCircle(e, 0.48, 0.5)) {
+							callNurse("hand");
+							return true;
+						}
+						if (inCircle(e, 0.27, 0.9)) {
+							callNurse("foot");
+							return true;
+						}
+						if (inCircle(e, 0.37, 0.9)) {
+							callNurse("foot");
+							return true;
+						}
+						if (e.getX() > width * 7 / 8) {
+							imageBody.setImageResource(R.drawable.background_3);
+							patientScreen = PatientScreen.MISC;
+							return true;
+						}
 					}
-					if (inCircle(e, 0.35, 0.27)) {
-						callNurse("chest");
-						return true;
-					}
-					if (inCircle(e, 0.2, 0.5)) {
-						callNurse("hand");
-						return true;
-					}
-					if (inCircle(e, 0.35, 0.4)) {
-						callNurse("stomach");
-						return true;
-					}
-					if (inCircle(e, 0.48, 0.5)) {
-						callNurse("hand");
-						return true;
-					}
-					if (inCircle(e, 0.27, 0.9)) {
-						callNurse("foot");
-						return true;
-					}
-					if (inCircle(e, 0.37, 0.9)) {
-						callNurse("foot");
-						return true;
+					else if (patientScreen == PatientScreen.MISC) {
+						if (inBigCircle(e, 0.5, 0.25) {
+							netComm.write(new RestroomMsg());
+							dialog = new Dialog(this);
+							dialog.setTitle("A nurse will come to assist you.");
+							dialog.show();
+						}
+						if (inBigCircle(e, 0.5, 0.75) {
+							netComm.write(new QuestionMsg());
+							dialog = new Dialog(this);
+							dialog.setTitle("A nurse will come to assist you.");
+							dialog.show();
+						}
+						if (e.getX() < width / 8) {
+							imageBody.setImageResource(R.drawable.background_2);
+							patientScreen = PatientScreen.HURT;
+							return true;
+						}
 					}
 				}
 				return false;

@@ -69,6 +69,12 @@ public class Server extends Activity implements Networked {
 			HurtMsg msg = (HurtMsg)msgObj;
 			showDialog("Patient " + senderIndex + "'s " + msg.bodyPart + " hurts. Please " + (Math.random() > 0.5 ? "DON'T " : "") + "send a nurse over.");
 		}
+		else if (msgObj instanceof RestroomMsg) {
+			showDialog("Patient " + senderIndex + " wants to use the restroom.");
+		}
+		else if (msgObj instanceof QuestionMsg) {
+			showDialog("Patient " + senderIndex + " has a question.");
+		}
 		else {
 			showDialog("Warning: received unknown message from patient " + senderIndex + ": " + msgObj);
 		}
