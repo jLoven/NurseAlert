@@ -19,5 +19,7 @@
     <string name="screen2_text2">Gravity</string>
     <string name="screen2_text3">Type in text and press the button below</string>
 	<string name="gen_text1">sdjfajskhfaksdjf</string>
+	<string name="connect_instruction">Nurse IP Address</string>
+	<string name="connect_button">Connect to Nurse</string>
     
 </resources>

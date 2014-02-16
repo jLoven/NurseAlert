@@ -1,20 +1,25 @@
 package com.jackieloven.thebasics;
 
+import java.net.Socket;
+
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
-public class Patient extends Activity {
+public class Patient extends Activity implements Networked {
+	public static String ip;
 
-	Dialog dialog;
+	private Dialog dialog;
+	private NetComm netComm;
 
 	private void callNurse(String bodyPart) {
-
+		HurtMsg msg = new HurtMsg();
+		msg.bodyPart = bodyPart;
+		netComm.write(msg);
 		dialog = new Dialog(this);
 		dialog.setTitle("Your " + bodyPart + " hurts. A nurse will come soon.");
 		dialog.show();
@@ -37,6 +42,8 @@ public class Patient extends Activity {
 		setContentView(R.layout.patient);
 
 		ImageView imageBody = (ImageView) findViewById(R.id.imageView1);
+		
+		new Thread(new NetworkThread()).start();
 
 		imageBody.setOnTouchListener(new OnTouchListener() {
 
@@ -76,5 +83,28 @@ public class Patient extends Activity {
 			}
 		});
 
+	}
+	
+	public void msgReceived(Object msgObj, NetComm sender) {
+		if (msgObj instanceof CloseConnectionMsg) {
+			netComm.close();
+			netComm = null;
+			finish();
+		}
+		else {
+			System.out.println("Warning: received unknown message " + msgObj);
+		}
+	}
+
+	private class NetworkThread implements Runnable {
+		public void run() {
+			try {
+				netComm = new NetComm(new Socket(ip, Server.PORT), Patient.this);
+			}
+			catch (Exception ex) {
+				netComm = null;
+				finish();
+			}
+		}
 	}
 }

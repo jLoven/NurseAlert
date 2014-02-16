@@ -6,6 +6,7 @@ import java.net.*;
 import java.util.*;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,9 +17,6 @@ public class Server extends Activity implements Networked {
 	
 	/** networking port that server listens on */
 	public static final int PORT = 44247;
-	/** interval between timer ticks in milliseconds */
-	public static final int UPDATE_RATE = 200;
-	private static final String TAG = "Server";
 
 	/** server socket used to set up connections with clients */
 	private ServerSocket serverSocket;
@@ -51,25 +49,34 @@ public class Server extends Activity implements Networked {
 			if (sender == netComms.get(senderIndex)) break;
 		}
 		if (senderIndex == netComms.size()) {
-			Log.i(TAG, "Warning: received message from unknown client: " + msgObj);
+			showDialog("Warning: received message from unknown patient: " + msgObj);
 			return;
 		}
 		// handle message
 		if (msgObj instanceof CloseConnectionMsg) {
 			// close connection with client
 			// (but don't call clients.get(i).close() because client might still receive the message and get confused)
-			Log.i(TAG, "Client " + senderIndex + " has left");
+			showDialog("Client " + senderIndex + " has left");
 			netComms.remove(senderIndex);
 		}
-		else if (msgObj instanceof String) {
-			// broadcast message to all clients (for TestClient only, not used by factory managers)
-			for (int i = 0; i < netComms.size(); i++) {
-				netComms.get(i).write("Message from " + senderIndex + " to " + i + ": " + (String)msgObj);
-			}
+		else if (msgObj instanceof HurtMsg) {
+			// notify nurse about patient
+			HurtMsg msg = (HurtMsg)msgObj;
+			showDialog("Patient " + senderIndex + "'s " + msg.bodyPart + " hurts. Please " + (Math.random() > 0.5 ? "DON'T " : "") + "send a nurse over.");
 		}
 		else {
-			Log.i(TAG, "Warning: received unknown message from client " + senderIndex + ": " + msgObj);
+			showDialog("Warning: received unknown message from patient " + senderIndex + ": " + msgObj);
 		}
+	}
+	
+	private void showDialog(final String text) {
+		runOnUiThread(new Runnable() {
+			public void run() {
+				Dialog dialog = new Dialog(Server.this);
+				dialog.setTitle(text);
+				dialog.show();
+			}
+		});
 	}
 
 	/** thread to accept new clients */
@@ -80,10 +87,10 @@ public class Server extends Activity implements Networked {
 				try {
 					Socket socket = serverSocket.accept();
 					netComms.add(new NetComm(socket, Server.this));
-					Log.i(TAG, "Client " + (netComms.size() - 1) + " has joined");
+					showDialog("Patient " + (netComms.size() - 1) + " is online.");
 				}
 				catch (Exception ex) {
-					Log.i(TAG, "Error accepting new client connection");
+					showDialog("Error accepting new patient connection.");
 					ex.printStackTrace();
 				}
 			}

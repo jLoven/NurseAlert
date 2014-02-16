@@ -96,7 +96,7 @@ public class menu extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				buttonSound.start();
-				startActivity(new Intent("com.jackieloven.thebasics.PATIENT"));
+				startActivity(new Intent("com.jackieloven.thebasics.CONNECT"));
 
 				// remember, this takes an Intent
 				// remember to import intent by hovering
