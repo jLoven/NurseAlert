@@ -67,7 +67,7 @@ public class Server extends Activity implements Networked {
 		else if (msgObj instanceof HurtMsg) {
 			// notify nurse about patient
 			HurtMsg msg = (HurtMsg)msgObj;
-			showDialog("Patient " + senderIndex + "'s " + msg.bodyPart + " hurts. Please " + (Math.random() > 0.5 ? "DON'T " : "") + "send a nurse over.");
+			showDialog("Patient " + senderIndex + "'s " + msg.bodyPart + " hurts. Please send a nurse over.");
 		}
 		else if (msgObj instanceof RestroomMsg) {
 			showDialog("Patient " + senderIndex + " wants to use the restroom.");
