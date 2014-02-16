@@ -28,6 +28,7 @@ public class Server extends Activity implements Networked {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.server);
 		// initialize server socket
 		try {
 			serverSocket = new ServerSocket(PORT);
@@ -57,6 +58,7 @@ public class Server extends Activity implements Networked {
 			showDialog("Warning: received message from unknown patient: " + msgObj);
 			return;
 		}
+		senderIndex++;
 		// handle message
 		if (msgObj instanceof CloseConnectionMsg) {
 			// close connection with client
@@ -98,7 +100,7 @@ public class Server extends Activity implements Networked {
 				try {
 					Socket socket = serverSocket.accept();
 					netComms.add(new NetComm(socket, Server.this));
-					showDialog("Patient " + (netComms.size() - 1) + " is online.");
+					showDialog("Patient " + netComms.size() + " is online.");
 				}
 				catch (Exception ex) {
 					ex.printStackTrace();
