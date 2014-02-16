@@ -81,30 +81,6 @@ public class menu extends Activity {
 		super.onPause();
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater awesome = getMenuInflater();
-		awesome.inflate(R.menu.main_menu, menu);
-		return true;
-		// import Menu
-		// call it menu
 
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menuSweet:
-			startActivity(new Intent("com.jackieloven.thebasics.SWEET"));
-			return true;
-		case R.id.menuToast:
-			Toast andEggs = Toast.makeText(menu.this, "This is a toast",
-					Toast.LENGTH_LONG);
-			andEggs.show();
-			return true;
-		}
-		// wanna reference the xml id
-
-		return false;
-	}
 
 }
