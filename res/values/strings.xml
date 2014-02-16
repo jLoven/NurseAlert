@@ -11,7 +11,7 @@
     <string name="radio_button5">Center</string>
     <string name="radio_button6">Right</string>
     <string name="gen_button1">Generate</string>
-    <string name="main_text1">Kickass App by Jackie L. and Andrew D.</string>
+    <string name="main_text1">App by Jackie L. and Andrew D.</string>
     <string name="main_text2">Because we can.</string>
     <string name="gen_button2">Radio Buttons</string>
     <string name="gen_button3">List View</string>
@@ -19,7 +19,7 @@
     <string name="screen2_text2">Gravity</string>
     <string name="screen2_text3">Type in text and press the button below</string>
 	<string name="gen_text1">sdjfajskhfaksdjf</string>
-	<string name="connect_instruction">Nurse IP Address</string>
+	<string name="connect_instruction">Nurse\'s IP Address:</string>
 	<string name="connect_button">Connect to Nurse</string>
     
 </resources>

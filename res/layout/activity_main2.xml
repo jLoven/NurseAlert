@@ -2,50 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background1"
+    android:background="@drawable/background_2"
     android:orientation="vertical" >
 
-    <TextView
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/main_text1" />
+        android:layout_marginTop="75sp"
+        android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/main_text2" />
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="195sp" >
-
-       <LinearLayout
+        <Button
+            android:id="@+id/btnNurse"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:text="I am a Nurse"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-   
-
-            <Button
-                android:id="@+id/btnNurse"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="I am a Nurse"
-                android:textSize="50sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btnPatient"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="I am a Patient"
-                android:textSize="50sp"
-                android:textStyle="bold" />
-
-            
-        </LinearLayout>
-    </ScrollView>
+        <Button
+            android:id="@+id/btnPatient"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="I am a Patient"
+            android:textColor="#ffffff"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>
